@@ -11,7 +11,17 @@ end
 
 module Sinatra
   require 'digest/md5'
-  require 'yajl'
+  begin
+    require 'yajl'
+    def self.encode(v)
+      Yajl::Encoder.encode(v)
+    end
+  rescue LoadErrror
+    require 'json'
+    def self.encode(v)
+      JSON.generate(v)
+    end
+  end
 
   class FacebookObject
     def initialize app
@@ -200,10 +210,10 @@ module Sinatra
 
                        "#{k}=" + case v
                                  when Hash
-                                   Yajl::Encoder.encode(v)
+                                   self.encode(v)
                                  when Array
                                    if k == :tags
-                                     Yajl::Encoder.encode(v)
+                                     self.encode(v)
                                    else
                                      v.join(',')
                                    end

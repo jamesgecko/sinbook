@@ -3,6 +3,7 @@ sinbook: simple sinatra facebook extension in 300 lines of ruby
 
 === Usage
 
+  require 'yajl-ruby' # If this is not included, sinbook will fallback on JSON.
   require 'sinbook'
   require 'sinatra'
 
