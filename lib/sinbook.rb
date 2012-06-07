@@ -16,7 +16,7 @@ module Sinatra
     def self.encode(v)
       Yajl::Encoder.encode(v)
     end
-  rescue LoadErrror
+  rescue LoadError
     require 'json'
     def self.encode(v)
       JSON.generate(v)
